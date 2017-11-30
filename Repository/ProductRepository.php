@@ -91,4 +91,22 @@ class ProductRepository
         }
     }
 
+
+    public function massDeleteProducts(array $idToDeleteArr)
+    {
+        $this->connect();
+        foreach ($idToDeleteArr as $idToDelete)
+        {
+            $this->deleteProduct($idToDelete);
+        }
+        mysqli_close($this->conn);
+    }
+
+    private function deleteProduct(int $idToDelete)
+    {
+        $sql = 'DELETE FROM products WHERE id = '. $idToDelete .';';
+
+        mysqli_query($this->conn, $sql);
+    }
+
 }
