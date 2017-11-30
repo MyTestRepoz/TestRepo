@@ -15,7 +15,7 @@ class ProductMapper
         $model->setName($data['name']);
         $model->setPrice($data['price']);
         $model->setType($data['price']);
-        $model->setSpecial('special');
+        $model->setSpecial($data['options']);
 
         return $model;
     }

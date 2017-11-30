@@ -1,0 +1,135 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.2.11-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             9.4.0.5125
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Dumping database structure for testdb
+DROP DATABASE IF EXISTS `testdb`;
+CREATE DATABASE IF NOT EXISTS `testdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `testdb`;
+
+-- Dumping structure for table testdb.categorys
+DROP TABLE IF EXISTS `categorys`;
+CREATE TABLE IF NOT EXISTS `categorys` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `category` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table testdb.categorys: ~3 rows (approximately)
+DELETE FROM `categorys`;
+/*!40000 ALTER TABLE `categorys` DISABLE KEYS */;
+INSERT INTO `categorys` (`id`, `category`) VALUES
+	(1, 'dvd'),
+	(2, 'book'),
+	(3, 'furniture');
+/*!40000 ALTER TABLE `categorys` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.category_has_option
+DROP TABLE IF EXISTS `category_has_option`;
+CREATE TABLE IF NOT EXISTS `category_has_option` (
+  `category_id` int(6) NOT NULL,
+  `option_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table testdb.category_has_option: ~5 rows (approximately)
+DELETE FROM `category_has_option`;
+/*!40000 ALTER TABLE `category_has_option` DISABLE KEYS */;
+INSERT INTO `category_has_option` (`category_id`, `option_id`) VALUES
+	(1, 1),
+	(2, 2),
+	(3, 3),
+	(3, 4),
+	(3, 5);
+/*!40000 ALTER TABLE `category_has_option` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.options_key
+DROP TABLE IF EXISTS `options_key`;
+CREATE TABLE IF NOT EXISTS `options_key` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `option_key` varchar(50) NOT NULL,
+  `unit_of_measurment` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table testdb.options_key: ~5 rows (approximately)
+DELETE FROM `options_key`;
+/*!40000 ALTER TABLE `options_key` DISABLE KEYS */;
+INSERT INTO `options_key` (`id`, `option_key`, `unit_of_measurment`) VALUES
+	(1, 'size', 'MB'),
+	(2, 'weight', 'kg'),
+	(3, 'height', 'm'),
+	(4, 'width', 'm'),
+	(5, 'lenght', 'm');
+/*!40000 ALTER TABLE `options_key` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.options_value
+DROP TABLE IF EXISTS `options_value`;
+CREATE TABLE IF NOT EXISTS `options_value` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `option_value` varchar(50) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table testdb.options_value: ~5 rows (approximately)
+DELETE FROM `options_value`;
+/*!40000 ALTER TABLE `options_value` DISABLE KEYS */;
+INSERT INTO `options_value` (`id`, `option_value`, `product_id`) VALUES
+	(1, '1025', 7),
+	(2, '0.35', 3),
+	(3, '0.56', 8),
+	(4, '0.47', 8),
+	(5, '1.40', 8);
+/*!40000 ALTER TABLE `options_value` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.option_has_value
+DROP TABLE IF EXISTS `option_has_value`;
+CREATE TABLE IF NOT EXISTS `option_has_value` (
+  `option_id` int(6) NOT NULL,
+  `value_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table testdb.option_has_value: ~5 rows (approximately)
+DELETE FROM `option_has_value`;
+/*!40000 ALTER TABLE `option_has_value` DISABLE KEYS */;
+INSERT INTO `option_has_value` (`option_id`, `value_id`) VALUES
+	(1, 1),
+	(2, 2),
+	(3, 3),
+	(4, 4),
+	(5, 5);
+/*!40000 ALTER TABLE `option_has_value` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.products
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `sku` varchar(12) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` double NOT NULL,
+  `category` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table testdb.products: ~3 rows (approximately)
+DELETE FROM `products`;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` (`id`, `sku`, `name`, `price`, `category`) VALUES
+	(3, 'SKU0001', 'A BOOK', 5.99, 'book'),
+	(7, 'SKU0005', 'A DVD', 1.89, 'dvd'),
+	(8, 'SKU0008', 'A CHAIR', 29.99, 'furniture');
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
